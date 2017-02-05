@@ -36,8 +36,6 @@ For an example script to launch this, see below:
 
 ```bash
 #!/usr/bin/env bash
-
-GOPATH=/path/to/your/GOPATH
 PREF_DIR=${HOME}/.IdeaIC2016.1_docker
 
 docker run -tdi \
@@ -65,9 +63,9 @@ updated.
 
 ## License
 
-The GNU License
+GNU General Public License
 
-If you want to read the full license text, please see the [LICENSE](https://github.com/zanyxdev/dev-idea-docker/blob/master/LICENSE) file
+If you want to read the full license text, please see the [LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html) file
 in this directory.
 
 IntelliJ IDEA and all the other plugins are or may be trademarks of their
