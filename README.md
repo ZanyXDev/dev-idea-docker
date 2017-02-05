@@ -2,6 +2,8 @@
 
 [![Circle CI](https://circleci.com/gh/ZanyXDev/dev-idea-docker.svg?style=svg)](https://circleci.com/gh/zanyxdev/dev-idea-docker)
 
+[![](https://images.microbadger.com/badges/version/zanyxdev/dev-idea-docker.svg)](https://microbadger.com/images/zanyxdev/dev-idea-docker "Get your own version badge on microbadger.com")
+
 The image contains the following software:
 
 - [IntelliJ IDEA Community 2016.2](https://www.jetbrains.com/idea/)
