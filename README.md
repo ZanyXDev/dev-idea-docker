@@ -1,8 +1,8 @@
-# Docker image for IntelliJ IDEA Community
+# Docker image for IntelliJ IDEA Community and Android SDK
 
 [![Circle CI](https://circleci.com/gh/ZanyXDev/dev-idea-docker.svg?style=svg)](https://circleci.com/gh/zanyxdev/dev-idea-docker)
 
-[![](https://images.microbadger.com/badges/version/zanyxdev/dev-idea-docker.svg)](https://microbadger.com/images/zanyxdev/dev-idea-docker "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/zanyxdev/dev-idea-docker.svg)](https://microbadger.com/images/zanyxdev/dev-idea-docker "Get your own image badge on microbadger.com")
 
 The image contains the following software:
 
