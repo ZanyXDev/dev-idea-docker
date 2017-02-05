@@ -46,6 +46,8 @@ RUN dpkg --add-architecture i386 && \
 # fix default setting
 #ln -s java-8-openjdk-amd64 /usr/lib/jvm/default-jvm
 
+ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+
 # TODO add encrypt polisy AES 256 key
 
 RUN export uid=1000 gid=1000 && \
@@ -59,19 +61,19 @@ RUN export uid=1000 gid=1000 && \
 
 
 #Installs and configure Android SDK
+ENV ANDROID_HOME="/home/developer/android-sdk-linux" \
+    PATH="${PATH}:/home/developer/android-sdk-linux/tools:/home/developer/android-sdk-linux/platform-tools"
+
 RUN curl -L https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o /tmp/tools_r25.2.3-linux.zip && \
     unzip /tmp/tools_r25.2.3-linux.zip -d /home/developer/android-sdk-linux && \
     rm -f /tmp/tools_r25.2.3-linux.zip
 
-RUN cd /home/developer/android-sdk-linux/tools && \
-    echo y | ./android update sdk --all --no-ui --force --filter android-22 && \
-    echo y | ./android update sdk --all --no-ui --force --filter platform-tools && \
-    echo y | ./android update sdk --all --no-ui --force --filter extra-android-m2repository && \
-    echo y | ./android update sdk --all --no-ui --force --filter extra-google-m2repository && \
-    echo y | ./android update sdk --all --no-ui --force --filter source-22 && \
-    echo y | ./android update sdk --all --no-ui --force --filter build-tools-22.0.1 && \
-    echo y | ./android update sdk --all --no-ui --force --filter android-21 && \
-    echo y | ./android update sdk --all --no-ui --force --filter build-tools-21.1.2 && \
+# Install Android SDK components
+ENV ANDROID_COMPONENTS platform-tools,build-tools-25.0.0,build-tools-25.0.1,android-25
+ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository
+
+RUN echo y | android update sdk --no-ui --all --filter "${ANDROID_COMPONENTS}" && \
+    echo y | android update sdk --no-ui --all --filter "${GOOGLE_COMPONENTS}"  && \
     chown ${uid}:${gid} -R /home/developer/android-sdk-linux
 
 RUN echo 'Downloading IntelliJ IDEA' && \
@@ -90,6 +92,7 @@ RUN curl --create-dirs -L -o /etc/udev/rules.d/51-android.rules -O -L https://ra
 
 #Install Gradle
 ENV GRADLE_URL http://services.gradle.org/distributions/gradle-3.3-all.zip
+GRADLE_HOME="/usr/local/gradle-3.3"
 RUN curl -L ${GRADLE_URL} -o /tmp/gradle-3.3-all.zip && \
     unzip /tmp/gradle-3.3-all.zip -d /usr/local && \
     rm /tmp/gradle-3.3-all.zip 
@@ -97,13 +100,8 @@ RUN curl -L ${GRADLE_URL} -o /tmp/gradle-3.3-all.zip && \
 #RUN apt-get update && apt-get install -y mc
 
 # Set things up using the dev user and reduce the need for `chown`s
-USER developer
-ENV ANDROID_HOME="/home/developer/android-sdk-linux" \
-    PATH="${PATH}:/home/developer/android-sdk-linux/tools:/home/developer/android-sdk-linux/platform-tools" \
-    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64" \
-    GRADLE_HOME="/usr/local/gradle-3.3"
+USER developer    
 
 WORKDIR /home/developer/IdeaProjects
-
 ENV HOME /home/developer
 CMD /opt/intellij/bin/idea.sh
