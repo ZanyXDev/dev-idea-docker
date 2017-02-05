@@ -1,6 +1,6 @@
 # Docker image for IntelliJ IDEA Community and Markdown plugin
 
-[![Circle CI](https://circleci.com/gh/zanyxdev/dev-idea-docker.svg?style=svg)](https://circleci.com/gh/zanyxdev/dev-idea-docker)
+[![Circle CI](https://circleci.com/gh/ZanyXDev/dev-idea-docker.svg?style=svg)](https://circleci.com/gh/zanyxdev/dev-idea-docker)
 
 The image contains the following software:
 
