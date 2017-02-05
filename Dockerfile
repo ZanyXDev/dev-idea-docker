@@ -78,14 +78,14 @@ RUN echo 'Downloading IntelliJ IDEA' && \
     chown -R developer:developer /opt/intellij  && \
     rm /tmp/intellij.tar.gz
 
-RUN mkdir -p /home/developer/.IdeaIC2016.2/config/options && \
-    mkdir -p /home/developer/.IdeaIC2016.2/config/plugins && \
+RUN mkdir -p /home/developer/.IdeaIC2016.3/config/options && \
+    mkdir -p /home/developer/.IdeaIC2016.3/config/plugins && \
     mkdir -p /home/developer/IdeaProject && \
     echo 'Installing Markdown plugin' && \
-    wget https://plugins.jetbrains.com/files/7793/25156/markdown-2016.1.20160405.zip -O markdown.zip -q && \
-    unzip -q markdown.zip -d /home/developer/.IdeaIC2016.2/config/plugins/ && \
+    wget https://plugins.jetbrains.com/files/7793/31990/markdown-2017.1.20170119.zip -O markdown.zip -q && \
+    unzip -q markdown.zip -d /home/developer/.IdeaIC2016.3/config/plugins/ && \
     rm markdown.zip && \
-    chown -R developer:developer /home/developer/.IdeaIC2016.2
+    chown -R developer:developer /home/developer/.IdeaIC2016.3
 
 
 #Install Gradle
