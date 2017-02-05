@@ -102,5 +102,6 @@ ENV ANDROID_HOME="/home/developer/android-sdk-linux" \
     GRADLE_HOME="/usr/local/gradle-3.3"
 
 WORKDIR /home/developer/IdeaProject
+
 ENV HOME /home/developer
 CMD /opt/intellij/bin/idea.sh
