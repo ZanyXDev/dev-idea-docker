@@ -48,7 +48,12 @@ RUN dpkg --add-architecture i386 && \
 
 ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
-# TODO add encrypt polisy AES 256 key
+# Download Java Cryptography Extension
+RUN cd /tmp/ && \
+    curl -LO "http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip" -H 'Cookie: oraclelicense=accept-securebackup-cookie' && \
+    unzip jce_policy-8.zip && \
+    rm jce_policy-8.zip && \
+    yes |cp -v /tmp/UnlimitedJCEPolicyJDK8/*.jar /usr/java/default/jre/lib/security/
 
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/developer && \
@@ -61,8 +66,8 @@ RUN export uid=1000 gid=1000 && \
 
 
 #Installs and configure Android SDK
-ENV ANDROID_HOME="/home/developer/android-sdk-linux" \
-    PATH="${PATH}:/home/developer/android-sdk-linux/tools:/home/developer/android-sdk-linux/platform-tools"
+ENV ANDROID_HOME /home/developer/android-sdk-linux 
+ENV PATH ${PATH}:/home/developer/android-sdk-linux/tools:/home/developer/android-sdk-linux/platform-tools
 
 RUN curl -L https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o /tmp/tools_r25.2.3-linux.zip && \
     unzip /tmp/tools_r25.2.3-linux.zip -d /home/developer/android-sdk-linux && \
@@ -92,7 +97,7 @@ RUN curl --create-dirs -L -o /etc/udev/rules.d/51-android.rules -O -L https://ra
 
 #Install Gradle
 ENV GRADLE_URL http://services.gradle.org/distributions/gradle-3.3-all.zip
-GRADLE_HOME="/usr/local/gradle-3.3"
+ENV GRADLE_HOME /usr/local/gradle-3.3
 RUN curl -L ${GRADLE_URL} -o /tmp/gradle-3.3-all.zip && \
     unzip /tmp/gradle-3.3-all.zip -d /usr/local && \
     rm /tmp/gradle-3.3-all.zip 
