@@ -40,13 +40,14 @@ RUN dpkg --add-architecture i386 && \
 	meld && \
 	apt-get clean && \
 	apt-get autoremove && \
-	rm -rf /var/lib/apt/lists/* && \
-	locale-gen ru_RU.UTF-8
+	rm -rf /var/lib/apt/lists/* 
+#	locale-gen ru_RU.UTF-8
 
 # fix default setting
 #ln -s java-8-openjdk-amd64 /usr/lib/jvm/default-jvm
 
 # TODO add encrypt polisy AES 256 key
+
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/developer && \
     echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
@@ -61,6 +62,7 @@ RUN export uid=1000 gid=1000 && \
 RUN curl -L https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o /tmp/tools_r25.2.3-linux.zip && \
     unzip /tmp/tools_r25.2.3-linux.zip -d /home/developer/android-sdk-linux && \
     rm -f /tmp/tools_r25.2.3-linux.zip
+
 RUN cd /home/developer/android-sdk-linux/tools && \
     echo y | ./android update sdk --all --no-ui --force --filter android-22 && \
     echo y | ./android update sdk --all --no-ui --force --filter platform-tools && \
@@ -81,17 +83,10 @@ RUN echo 'Downloading IntelliJ IDEA' && \
     chown ${uid}:${gid} -R /opt/intellij  && \
     rm /tmp/intellij.tar.gz
 
-RUN mkdir -p /home/developer/.IdeaIC2016.3/config/plugins && \
-    mkdir -p /home/developer/IdeaProject && \
-    echo 'Installing Markdown plugin' && \
-    wget https://plugins.jetbrains.com/files/7793/31990/markdown-2017.1.20170119.zip -O markdown.zip -q && \
-    unzip -q markdown.zip -d /home/developer/.IdeaIC2016.3/config/plugins/ && \
-    rm markdown.zip && \
-    chown ${uid}:${gid} -R /home/developer/.IdeaIC2016.3
 
 # Set up USB device debugging (device is ID in the rules files)
-ADD 51-android.rules /etc/udev/rules.d
-RUN chmod a+r /etc/udev/rules.d/51-android.rules
+RUN curl --create-dirs -L -o /etc/udev/rules.d/51-android.rules -O -L https://raw.githubusercontent.com/ZanyXDev/dev-idea-docker/latest/51-android.rules && \
+    chmod a+r /etc/udev/rules.d/51-android.rules
 
 #Install Gradle
 ENV GRADLE_URL http://services.gradle.org/distributions/gradle-3.3-all.zip
@@ -111,5 +106,4 @@ ENV ANDROID_HOME="/home/developer/android-sdk-linux" \
 WORKDIR /home/developer/IdeaProjects
 
 ENV HOME /home/developer
-#CMD mc
 CMD /opt/intellij/bin/idea.sh
