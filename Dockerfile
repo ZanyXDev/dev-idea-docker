@@ -55,6 +55,12 @@ RUN cd /tmp && \
     yes | cp -v /tmp/UnlimitedJCEPolicyJDK8/*.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/ && \
     rm jce_policy-8.zip
 
+RUN mkdir -p /home/developer && \
+    useradd developer && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown -R developer:developer /home/developer
+
 VOLUME /home/developer
 
 # Set things up using the dev user and reduce the need for `chown`s
