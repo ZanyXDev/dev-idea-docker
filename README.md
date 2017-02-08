@@ -7,6 +7,9 @@
 The image contains the following software:
 
 - [IntelliJ IDEA Community 2016.2](https://www.jetbrains.com/idea/)
+- [Android SDK] (https://dl.google.com/android/repository/tools_r25.2.3-linux.zip)
+- [Android components] platform-tools,build-tools-25.0.0,build-tools-25.0.1,build-tools-25.0.2,android-25
+- [Google components] extra-android-m2repository,extra-google-m2repository
 
 ## Running
 

@@ -61,6 +61,22 @@ RUN mkdir -p /home/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     chown -R developer:developer /home/developer
 
+#Installs configure and update Android SDK with components
+ENV ANDROID_HOME /opt/android-sdk-linux 
+ENV PATH ${PATH}:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools
+ENV ANDROID_COMPONENTS platform-tools,build-tools-25.0.0,build-tools-25.0.1,build-tools-25.0.2,android-25
+ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository
+
+RUN curl -L https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o /tmp/tools_r25.2.3-linux.zip && \
+    unzip /tmp/tools_r25.2.3-linux.zip -d /opt/android-sdk-linux && \
+    rm -f /tmp/tools_r25.2.3-linux.zip && \   
+    echo y | android update sdk --no-ui --all --filter "${ANDROID_COMPONENTS}" && \
+    echo y | android update sdk --no-ui --all --filter "${GOOGLE_COMPONENTS}"  && \
+    chown -R developer:developer /opt/android-sdk-linux
+    
+
+
+
 VOLUME /home/developer
 
 # Set things up using the dev user and reduce the need for `chown`s
