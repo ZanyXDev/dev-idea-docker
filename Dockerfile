@@ -74,7 +74,12 @@ RUN curl -L https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o 
     echo y | android update sdk --no-ui --all --filter "${GOOGLE_COMPONENTS}"  && \
     chown -R developer:developer /opt/android-sdk-linux
     
-
+RUN curl -L https://download.jetbrains.com/idea/ideaIC-2016.3.4-no-jdk.tar.gz -o /tmp/intellij.tar.gz && \
+    mkdir -p /opt/intellij && \
+    tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
+    chmod +x /opt/intellij/bin/idea.sh && \
+    chown -R developer:developer /opt/intellij  && \
+    rm /tmp/intellij.tar.gz
 
 
 VOLUME /home/developer
