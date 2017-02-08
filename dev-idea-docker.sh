@@ -1,8 +1,12 @@
 #!/bin/bash
 
-for dir in .idea-home .gradle .idea .android/avd IdeaProjects; do
-  mkdir -p ~/.docker-dev/$dir
-done
+#TODO check if exist volume 
+# inside the volume in the  first run creates^
+# /home/developer/.IdeaIC2016.3
+# /home/developer/IdeaProjects
+
+docker volume create dev_home
+docker volume create dev_home_projects
 
 docker run -tdi \
     --rm \
@@ -13,7 +17,6 @@ docker run -tdi \
     -v /dev/bus/usb:/dev/bus/usb \
     -v /dev/kvm:/dev/kvm \
     -v $HOME/.Xauthority:/home/developer/.Xauthority \
-    -v $HOME/.docker-dev/.idea-home:/home/developer/.IdeaIC2016.3 \
-    -v $HOME/.docker-dev/.android/avd:/home/developer/.android/avd \
-    -v $HOME/.docker-dev/IdeaProjects:/home/developer/IdeaProjects \
+    -v dev_home:/home/developer/ \
+    -v dev_home_projects:/home/developer/IdeaProjects \    
     zanyxdev/dev-idea-docker:latest
