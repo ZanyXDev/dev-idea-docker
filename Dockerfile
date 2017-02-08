@@ -18,6 +18,7 @@ RUN dpkg --add-architecture i386 && \
     apt-get update && \
     apt-get install -yq --no-install-recommends software-properties-common  \
     apt \
+    apt-utils \ 
     libapt-pkg5.0 \
     libsystemd0 \
     libudev1 \
