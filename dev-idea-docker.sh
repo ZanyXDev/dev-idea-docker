@@ -5,8 +5,7 @@
 # /home/developer/.IdeaIC2016.3
 # /home/developer/IdeaProjects
 
-docker volume create dev_home
-docker volume create dev_home_projects
+#docker volume create dev_home
 
 docker run -tdi \
     --rm \
@@ -18,5 +17,4 @@ docker run -tdi \
     -v /dev/kvm:/dev/kvm \
     -v $HOME/.Xauthority:/home/developer/.Xauthority \
     -v dev_home:/home/developer/ \
-    -v dev_home_projects:/home/developer/IdeaProjects \    
     zanyxdev/dev-idea-docker:latest
