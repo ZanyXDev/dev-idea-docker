@@ -34,6 +34,7 @@ RUN dpkg --add-architecture i386 && \
     libxtst-dev \
     libgtk2.0-0 \
     libcanberra-gtk-module \
+    libqt5widgets5 \
     unzip \
     wget \
     curl \
@@ -46,6 +47,7 @@ RUN dpkg --add-architecture i386 && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* 
+
 
 # Download Java Cryptography Extension
 RUN cd /tmp && \
@@ -92,6 +94,10 @@ USER developer
 
 ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 ENV HOME /home/developer
+
+# Required for Android ARM Emulator
+ENV QT_QPA_PLATFORM offscreen
+ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${ANDROID_HOME}/tools/lib64
 
 #set Russian locale
 ENV LC_ALL ru_RU.UTF-8 
