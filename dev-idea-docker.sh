@@ -6,7 +6,7 @@
 # /home/developer/IdeaProjects
 
 #docker volume create dev_home
-
+#    zanyxdev/dev-idea-docker:latest
 docker run -tdi \
     --rm \
     --privileged=true \
