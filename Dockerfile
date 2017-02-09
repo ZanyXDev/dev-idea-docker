@@ -47,7 +47,6 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* 
 
-
 # Download Java Cryptography Extension
 RUN cd /tmp && \
     curl -LO "http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip" -H 'Cookie: oraclelicense=accept-securebackup-cookie' && \
@@ -64,14 +63,18 @@ RUN mkdir -p /home/developer && \
 #Installs configure and update Android SDK with components
 ENV ANDROID_HOME /opt/android-sdk-linux 
 ENV PATH ${PATH}:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools
-ENV ANDROID_COMPONENTS platform-tools,build-tools-25.0.0,build-tools-25.0.1,build-tools-25.0.2,android-25
-ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository
+ENV ANDROID_COMPONENTS platform-tools,android-25,android-21,build-tools-25.0.2,build-tools-21.1.2
+ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services
+ENV GOOGLE_IMG sys-img-armeabi-v7a-android-24
+ENV GOOGLE_APIS addon-google_apis-google-23, addon-google_apis-google-22, addon-google_apis-google-21
 
-RUN curl -L https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o /tmp/tools_r25.2.3-linux.zip && \
-    unzip /tmp/tools_r25.2.3-linux.zip -d /opt/android-sdk-linux && \
-    rm -f /tmp/tools_r25.2.3-linux.zip && \   
+RUN curl -L https://dl.google.com/android/repository/tools_r25.2.4-linux.zip -o /tmp/tools_r25.2.4-linux.zip && \
+    unzip /tmp/tools_r25.2.4-linux.zip -d /opt/android-sdk-linux && \
+    rm -f /tmp/tools_r25.2.4-linux.zip && \   
     echo y | android update sdk --no-ui --all --filter "${ANDROID_COMPONENTS}" && \
     echo y | android update sdk --no-ui --all --filter "${GOOGLE_COMPONENTS}"  && \
+    echo y | android update sdk --no-ui --all --filter "${GOOGLE_IMG}"  && \
+    echo y | android update sdk --no-ui --all --filter "${GOOGLE_APIS}"  && \
     chown -R developer:developer /opt/android-sdk-linux
     
 RUN curl -L https://download.jetbrains.com/idea/ideaIC-2016.3.4-no-jdk.tar.gz -o /tmp/intellij.tar.gz && \
@@ -85,10 +88,11 @@ RUN curl -L https://download.jetbrains.com/idea/ideaIC-2016.3.4-no-jdk.tar.gz -o
 VOLUME /home/developer
 
 # Set things up using the dev user and reduce the need for `chown`s
-#USER developer    
+USER developer    
 
 ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 ENV HOME /home/developer
+
 #set Russian locale
 ENV LC_ALL ru_RU.UTF-8 
 ENV LANG ru_RU.UTF-8 
