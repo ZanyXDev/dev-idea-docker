@@ -1,12 +1,15 @@
-# Docker image for IntelliJ IDEA Community
+# Docker image for IntelliJ IDEA Community and Android SDK
 
 [![Circle CI](https://circleci.com/gh/ZanyXDev/dev-idea-docker.svg?style=svg)](https://circleci.com/gh/zanyxdev/dev-idea-docker)
 
-[![](https://images.microbadger.com/badges/version/zanyxdev/dev-idea-docker.svg)](https://microbadger.com/images/zanyxdev/dev-idea-docker "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/zanyxdev/dev-idea-docker.svg)](https://microbadger.com/images/zanyxdev/dev-idea-docker "Get your own image badge on microbadger.com")
 
 The image contains the following software:
 
 - [IntelliJ IDEA Community 2016.2](https://www.jetbrains.com/idea/)
+- [Android SDK] (https://dl.google.com/android/repository/tools_r25.2.5-linux.zip)
+- [Android components] platform-tools,build-tools-25.0.2,build-tools-21.1.2,android-25,android-21
+- [Google components] extra-android-m2repository,extra-google-m2repository
 
 ## Running
 
