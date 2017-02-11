@@ -19,22 +19,24 @@ RUN dpkg --add-architecture i386 && \
     apt-get install -yq --no-install-recommends software-properties-common  \
     apt \
     apt-utils \ 
-    libapt-pkg5.0 \
-    libsystemd0 \
-    libudev1 \
+    pciutils \
     systemd \
     systemd-sysv \
     git \
+    libgl1-mesa-dev \
+    libapt-pkg5.0 \
+    libsystemd0 \
+    libudev1 \
     libxext-dev \
     libxrender-dev \
-    libstdc++6:i386 \
-    zlib1g:i386 \
-    libncurses5:i386 \
     libxslt1.1 \
     libxtst-dev \
     libgtk2.0-0 \
     libcanberra-gtk-module \
     libqt5widgets5 \
+    libstdc++6:i386 \
+    libncurses5:i386 \
+    zlib1g:i386 \
     unzip \
     wget \
     curl \
