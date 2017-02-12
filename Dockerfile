@@ -5,6 +5,9 @@ MAINTAINER ZanyXDev "zanyxdev@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 
+ARG BUILD_DATE
+ARG VCS_REF
+
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/ZanyXDev/dev-idea-docker.git" \
       org.label-schema.vcs-ref=$VCS_REF \
